@@ -8,7 +8,11 @@ enum BasicSkill : int
 {
 	Accuracy,
 	SkillBegin = Accuracy,
+	Agility,
 	Dexterity,
+	Durability,
+	Intelligence,
+	Reflexes,
 	Speed,
 	Stamina,
 	Strength,
@@ -21,8 +25,16 @@ std::string ToString(BasicSkill skill)
 	{
 	case Accuracy:
 		return "Accuracy";
+	case Agility:
+		return "Agility";
 	case Dexterity:
 		return "Dexterity";
+	case Durability:
+		return "Durability";
+	case Intelligence:
+		return "Intelligence";
+	case Reflexes:
+		return "Reflexes";
 	case Speed:
 		return "Speed";
 	case Stamina:
