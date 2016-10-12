@@ -149,6 +149,7 @@
     <ClCompile Include="DialogueGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicSkills.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="NamedObject.h" />
