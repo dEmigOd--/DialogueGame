@@ -17,8 +17,15 @@ protected:
 	{
 	}
 
-	static const std::string ENDL;
-	static const std::string TAB;
+	static std::string ENDL()
+	{
+		return "\n";
+	}
+
+	static std::string TAB()
+	{
+		return "\t";
+	}
 
 	void UpdateName(const std::string& newName)
 	{

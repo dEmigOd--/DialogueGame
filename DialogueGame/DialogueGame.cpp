@@ -12,9 +12,6 @@
 // check out Windows specific
 #include <stdlib.h>
 
-const std::string NamedObject::ENDL = "\n";
-const std::string NamedObject::TAB = "\t";
-
 void PrintBasicSkill(BasicSkill skill)
 {
 	std::cout << skill + 1 << ". " << skill << std::endl;

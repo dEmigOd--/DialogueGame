@@ -10,6 +10,7 @@ class Character : public NamedObject, public ReadWriteToFile
 private:
 	std::map<std::string, Skill> skills;
 	std::map<BasicSkill, int> basicSkills;
+	int experience;
 
 public:
 	Character()
@@ -17,7 +18,7 @@ public:
 	}
 
 	Character(const std::string& name)
-		: NamedObject(name), basicSkills(EmptySkillsBag())
+		: NamedObject(name), basicSkills(EmptySkillsBag()), experience(0)
 	{
 	}
 
@@ -38,12 +39,22 @@ public:
 		basicSkills.at(skill) += value;
 	}
 
-#define PRINT_BASE_SKILL(skill)  TAB + ToString(skill) + "   " + TAB + std::to_string(basicSkills.at(skill)) + ENDL
+	virtual void AddExperience(int addedExperience)
+	{
+		experience += addedExperience;
+	}
+
+	virtual int Experience() const
+	{
+		return experience;
+	}
+
+#define PRINT_BASE_SKILL(skill)  TAB() + ToString(skill) + "   " + TAB() + std::to_string(basicSkills.at(skill)) + ENDL()
 
 	virtual std::string FullStat() const
 	{
-		std::string retValue = "Player Name: " + Name() + ENDL +
-			" Base skills: " + ENDL;
+		std::string retValue = "Player Name: " + Name() + ENDL() +
+			" Base skills: " + ENDL();
 		
 		for (BasicSkill skill = BasicSkill::SkillBegin; skill < BasicSkill::SkillEnd; ++skill)
 		{
