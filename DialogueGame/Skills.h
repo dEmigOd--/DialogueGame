@@ -216,9 +216,13 @@ public:
 	Skill& operator+=(int value)
 	{
 		if (value < 0)
-			return *this - (-value);
-
-		addedLevel += value;
+		{
+			*this - (-value);
+		}
+		else 
+		{
+			addedLevel += value;
+		}
 
 		return *this;
 	}
@@ -241,9 +245,13 @@ public:
 	Skill& operator-=(int value)
 	{
 		if (value < 0)
-			return *this + (-value);
-
-		addedLevel -= addedLevel <= value ? addedLevel : value;
+		{
+			*this + (-value);
+		}
+		else
+		{
+			addedLevel -= addedLevel <= value ? addedLevel : value;
+		}
 
 		return *this;
 	}
