@@ -19,7 +19,7 @@ enum BasicSkill : int
 	SkillEnd,
 };
 
-std::string ToString(BasicSkill skill)
+inline std::string ToString(BasicSkill skill)
 {
 	switch (skill)
 	{
@@ -46,7 +46,7 @@ std::string ToString(BasicSkill skill)
 	}
 }
 
-std::ostream& operator<<(std::ostream& os, BasicSkill skill)
+inline std::ostream& operator<<(std::ostream& os, BasicSkill skill)
 {
 	return os << ToString(skill);
 }
@@ -67,35 +67,35 @@ namespace std
 	};
 }
 
-BasicSkill &operator++(BasicSkill &c)
+inline BasicSkill &operator++(BasicSkill &c)
 {
 	c = static_cast<BasicSkill>(c + 1);
 	return c;
 }
 
-BasicSkill operator++(BasicSkill &c, int)
+inline BasicSkill operator++(BasicSkill &c, int)
 {
 	++c;
 	return static_cast<BasicSkill>(c - 1);
 }
 
-BasicSkill &operator--(BasicSkill &c)
+inline BasicSkill &operator--(BasicSkill &c)
 {
 	return c = static_cast<BasicSkill>(c - 1);
 }
 
-BasicSkill operator--(BasicSkill &c, int)
+inline BasicSkill operator--(BasicSkill &c, int)
 {
 	--c;
 	return static_cast<BasicSkill>(c + 1);
 }
 
-BasicSkill operator*(BasicSkill c)
+inline BasicSkill operator*(BasicSkill c)
 {
 	return c;
 }
 
-std::map<BasicSkill, int> EmptySkillsBag()
+inline std::map<BasicSkill, int> EmptySkillsBag()
 {
 	std::map<BasicSkill, int> bag;
 
@@ -154,12 +154,12 @@ public:
 	}
 };
 
-std::ostream& operator<<(std::ostream& os, const BasicSkillVectorReaderWriter& rw)
+inline std::ostream& operator<<(std::ostream& os, const BasicSkillVectorReaderWriter& rw)
 {
 	return rw.PrintToStream(os);
 }
 
-std::istream& operator >> (std::istream& is, BasicSkillVectorReaderWriter& rw)
+inline std::istream& operator >> (std::istream& is, BasicSkillVectorReaderWriter& rw)
 {
 	return rw.ReadFromStream(is);
 }

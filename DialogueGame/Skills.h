@@ -160,54 +160,57 @@ public:
 	}
 };
 
-std::ostream& operator<<(std::ostream& os, const Skill& skill)
+inline std::ostream& operator<<(std::ostream& os, const Skill& skill)
 {
 	return skill.PrintToStream(os);
 }
 
-std::istream& operator>>(std::istream& is, Skill& skill)
+inline std::istream& operator>>(std::istream& is, Skill& skill)
 {
 	return skill.ReadFromStream(is);
 }
 
-Skill CreateBaseSkill(BasicSkill skill, int baseLevel, int multiplier)
-{
-	std::map<BasicSkill, int> underlying(EmptySkillsBag());
-	underlying[skill] = multiplier;
+class SkillCreator {
+	Skill CreateBaseSkill(BasicSkill skill, int baseLevel, int multiplier)
+	{
+		std::map<BasicSkill, int> underlying(EmptySkillsBag());
+		underlying[skill] = multiplier;
 
-	return Skill(ToString(skill), baseLevel, underlying);
-}
+		return Skill(ToString(skill), baseLevel, underlying);
+	}
+public:
 
-Skill CreateAccuracy()
-{
-	throw NotImplementedException();
-	//return CreateBaseSkill(BasicSkill::Accuracy, "Accuracy");
-}
+	Skill CreateAccuracy()
+	{
+		throw NotImplementedException();
+		//return CreateBaseSkill(BasicSkill::Accuracy, "Accuracy");
+	}
 
-Skill CreateDexterity()
-{
-	throw NotImplementedException();
-	//return CreateBaseSkill(BasicSkill::Dexterity, "Dexterity");
-}
+	Skill CreateDexterity()
+	{
+		throw NotImplementedException();
+		//return CreateBaseSkill(BasicSkill::Dexterity, "Dexterity");
+	}
 
-Skill CreateSpeed()
-{
-	throw NotImplementedException();
-	//return CreateBaseSkill(BasicSkill::Speed, "Speed");
-}
+	Skill CreateSpeed()
+	{
+		throw NotImplementedException();
+		//return CreateBaseSkill(BasicSkill::Speed, "Speed");
+	}
 
-Skill CreateStamina()
-{
-	return CreateBaseSkill(BasicSkill::Stamina, 100, 10);
-}
+	Skill CreateStamina()
+	{
+		return CreateBaseSkill(BasicSkill::Stamina, 100, 10);
+	}
 
-Skill CreateStrength()
-{
-	throw NotImplementedException();
-	//return CreateBaseSkill(BasicSkill::Strength, "Strength");
-}
+	Skill CreateStrength()
+	{
+		throw NotImplementedException();
+		//return CreateBaseSkill(BasicSkill::Strength, "Strength");
+	}
 
-Skill CreateHealth()
-{
-	return CreateBaseSkill(BasicSkill::Strength, 100, 10);
-}
+	Skill CreateHealth()
+	{
+		return CreateBaseSkill(BasicSkill::Strength, 100, 10);
+	}
+};

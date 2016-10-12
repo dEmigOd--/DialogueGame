@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Arena">
+      <UniqueIdentifier>{7a1025c0-4fa6-46b2-8aa7-8f1b36aa484f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Arena">
+      <UniqueIdentifier>{dae23857-6dd0-447d-8d36-2aacefa53757}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -20,6 +26,9 @@
   <ItemGroup>
     <ClCompile Include="DialogueGame.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGenerator.cpp">
+      <Filter>Source Files\Arena</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="Experience.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGenerator.h">
+      <Filter>Header Files\Arena</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

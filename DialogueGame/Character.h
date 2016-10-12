@@ -8,17 +8,20 @@
 class Character : public NamedObject, public ReadWriteToFile
 {
 private:
+	static const int SAVE_FILE_VERSION = 3;
+
 	std::map<std::string, Skill> skills;
 	std::map<BasicSkill, int> basicSkills;
 	int experience;
+	int unassignedPoints;
 
 public:
 	Character()
 	{
 	}
 
-	Character(const std::string& name)
-		: NamedObject(name), basicSkills(EmptySkillsBag()), experience(0)
+	Character(const std::string& name, int unassignedPoints)
+		: NamedObject(name), basicSkills(EmptySkillsBag()), experience(0), unassignedPoints(unassignedPoints)
 	{
 	}
 
@@ -36,7 +39,9 @@ public:
 
 	void AddBasicSkill(BasicSkill skill, int value)
 	{
+		_ASSERT_EXPR(value <= unassignedPoints, "Not enough skill points to assign.");
 		basicSkills.at(skill) += value;
+		unassignedPoints -= value;
 	}
 
 	virtual void AddExperience(int addedExperience)
@@ -70,6 +75,7 @@ public:
 	virtual std::ostream& PrintToStream(std::ostream& os) const
 	{
 		// write obj to stream
+		os << SAVE_FILE_VERSION << std::endl;
 		os << Name() << std::endl;
 
 		for (auto const& skill : skills)
@@ -80,12 +86,20 @@ public:
 
 		os << std::endl;
 		os << BasicSkillVectorReaderWriter(basicSkills);
+		os << Experience() << " " << unassignedPoints << std::endl;
 
 		return os;
 	}
 
 	virtual std::istream& ReadFromStream(std::istream& is)
 	{
+		int fileVersion;
+
+		is >> fileVersion;
+		_ASSERT_EXPR(fileVersion == SAVE_FILE_VERSION, "Unable to read save file of previous versions");
+
+		IgnoreRestOfLine(is);
+
 		// read obj from stream
 		std::string name;
 		std::getline(is, name);
@@ -105,7 +119,7 @@ public:
 			Skill skill;
 			is >> skill;
 
-			is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			IgnoreRestOfLine(is);
 			storedSkills.insert(std::make_pair(key, skill));
 		}
 
@@ -116,16 +130,18 @@ public:
 
 		basicSkills.swap(rw.Skills());
 
+		is >> experience >> unassignedPoints;
+
 		return is;
 	}
 };
 
-std::ostream& operator<<(std::ostream& os, const Character& ch)
+inline std::ostream& operator<<(std::ostream& os, const Character& ch)
 {
 	return ch.PrintToStream(os);
 }
 
-std::istream& operator>>(std::istream& is, Character& ch)
+inline std::istream& operator>>(std::istream& is, Character& ch)
 {
 	return ch.ReadFromStream(is);
 }

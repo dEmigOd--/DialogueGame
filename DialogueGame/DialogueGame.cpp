@@ -9,8 +9,13 @@
 #include <fstream>
 #include "Character.h"
 #include "Skills.h"
+#include "EnemyGenerator.h"
+#include "Experience.h"
 // check out Windows specific
 #include <stdlib.h>
+
+bool ExperienceManager::initialized;
+int ExperienceManager::Levels[];
 
 void PrintBasicSkill(BasicSkill skill)
 {
@@ -20,6 +25,8 @@ void PrintBasicSkill(BasicSkill skill)
 class Game
 {
 private:
+	EnemyGenerator eGenerator;
+
 	void PrintEmptyLine() const
 	{
 		std::cout << std::endl;
@@ -60,23 +67,28 @@ public:
 		ClearScreen();
 		std::cout << "Main Menu" << std::endl;
 		PrintEmptyLine();
-		std::cout << "1. Create New Hero" << std::endl;
-		std::cout << "2. Load Hero" << std::endl;
-		std::cout << "3. Save Last Hero" << std::endl;
-		std::cout << "4. Exit" << std::endl;
+
+		int menuIndex = 0;
+		std::cout << ++menuIndex << ". Create New Hero" << std::endl;
+		std::cout << ++menuIndex << ". Load Hero" << std::endl;
+		std::cout << ++menuIndex << ". Save Last Hero" << std::endl;
+		std::cout << ++menuIndex << ". Generate Random Enemy" << std::endl;
+		std::cout << ++menuIndex << ". Exit" << std::endl;
 		PrintEmptyLine();
 
 		int choice;
 		std::cin >> choice;
 
-		if (choice < 1 || choice > 4)
-			return 4;
+		if (choice < 1 || choice > menuIndex)
+			return menuIndex;
 
 		return choice;
 	}
 
 	Character* AddPlayerOption() const
 	{
+		static SkillCreator skillCreator;
+
 		ClearInputBuffer();
 		ClearScreen();
 		std::cout << "Please enter your name ..." << std::endl;
@@ -84,10 +96,10 @@ public:
 		std::string playerName;
 		std::getline(std::cin, playerName);
 
-		Character* playerCharacter = new Character(playerName);
+		Character* playerCharacter = new Character(playerName, 5);
 
-		playerCharacter->AddSkill(CreateStamina());
-		playerCharacter->AddSkill(CreateHealth());
+		playerCharacter->AddSkill(skillCreator.CreateStamina());
+		playerCharacter->AddSkill(skillCreator.CreateHealth());
 
 		ClearScreen();
 		std::cout << "Congratulations! New player have been created." << std::endl;
@@ -164,11 +176,11 @@ public:
 		ClearScreen();
 		int awardedPoints = 5;
 		std::cout << "You've been awarded " << awardedPoints << " skill points." << std::endl;
-		PrintEmptyLine();
+		Pause();
 
 		while (awardedPoints > 0)
 		{
-			PrintEmptyLine();
+			ClearScreen();
 			std::cout << "Please spend some points(" << awardedPoints << ") on the skills in the below list." << std::endl;
 			std::cout << "Choose a pair of skill/value Or press 0 to finish." << std::endl;
 			PrintEmptyLine();
@@ -207,6 +219,27 @@ public:
 
 		Pause();
 	}
+
+	void GenerateEnemy() const
+	{
+		ClearInputBuffer();
+		ClearScreen();
+		std::cout << "Please provide enemy level to generate..." << std::endl;
+		
+		int enemyLevel;
+		std::cin >> enemyLevel;
+
+		Character enemy = eGenerator.Generate(enemyLevel, 5);
+
+		ClearScreen();
+		std::cout << enemy.Name() << " generated." << std::endl;
+		PrintEmptyLine();
+		PrintEmptyLine();
+
+		std::cout << enemy.FullStat();
+
+		Pause();
+	}
 };
 
 int main()
@@ -220,7 +253,7 @@ int main()
 	while (true)
 	{
 		int mainMenuChoice = game.PrintMainMenu();
-		if (mainMenuChoice == 4)
+		if (mainMenuChoice == 5)
 			break;
 
 		switch (mainMenuChoice)
@@ -234,6 +267,9 @@ int main()
 			break;
 		case 3:
 			game.SavePlayer(player.get());
+			break;
+		case 4:
+			game.GenerateEnemy();
 			break;
 		default:
 			break;
