@@ -121,7 +121,7 @@ public:
 	{
 	}
 
-	virtual std::ostream& PrintToStream(std::ostream& os) const
+	virtual std::ostream& WriteToStream(std::ostream& os) const
 	{
 		for (auto const& skill : skills)
 		{
@@ -156,7 +156,7 @@ public:
 
 inline std::ostream& operator<<(std::ostream& os, const BasicSkillVectorReaderWriter& rw)
 {
-	return rw.PrintToStream(os);
+	return rw.WriteToStream(os);
 }
 
 inline std::istream& operator >> (std::istream& is, BasicSkillVectorReaderWriter& rw)

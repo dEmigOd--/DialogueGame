@@ -8,8 +8,6 @@
 class Character : public NamedObject, public ReadWriteToFile
 {
 private:
-	static const int SAVE_FILE_VERSION = 3;
-
 	std::map<std::string, Skill> skills;
 	std::map<BasicSkill, int> basicSkills;
 	int experience;
@@ -72,7 +70,7 @@ public:
 		return retValue;
 	}
 
-	virtual std::ostream& PrintToStream(std::ostream& os) const
+	virtual std::ostream& WriteToStream(std::ostream& os) const
 	{
 		// write obj to stream
 		os << SAVE_FILE_VERSION << std::endl;
@@ -138,7 +136,7 @@ public:
 
 inline std::ostream& operator<<(std::ostream& os, const Character& ch)
 {
-	return ch.PrintToStream(os);
+	return ch.WriteToStream(os);
 }
 
 inline std::istream& operator>>(std::istream& is, Character& ch)

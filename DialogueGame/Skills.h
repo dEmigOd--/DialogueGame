@@ -132,7 +132,7 @@ public:
 		return !(*this != other);
 	}
 
-	virtual std::ostream& PrintToStream(std::ostream& os) const
+	virtual std::ostream& WriteToStream(std::ostream& os) const
 	{
 		// write obj to stream
 		os << Name() << std::endl;
@@ -162,7 +162,7 @@ public:
 
 inline std::ostream& operator<<(std::ostream& os, const Skill& skill)
 {
-	return skill.PrintToStream(os);
+	return skill.WriteToStream(os);
 }
 
 inline std::istream& operator>>(std::istream& is, Skill& skill)

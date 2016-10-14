@@ -92,6 +92,23 @@ SHOULD_WAIT_FOR_USER AddPlayer(Utils& utils, GameState& state)
 	return true;
 }
 
+bool LoadPlayer(GameState& state, const std::string& heroName)
+{
+	std::ifstream heroFile(BuildHeroFileName(heroName));
+
+	Character* hero = nullptr;
+
+	if (heroFile.is_open())
+	{
+		hero = new Character();
+		heroFile >> *hero;
+	}
+
+	state.hero = std::shared_ptr<Character>(hero);
+
+	return hero != nullptr;
+}
+
 SHOULD_WAIT_FOR_USER LoadPlayer(Utils& utils, GameState& state)
 {
 	utils.ClearInputBuffer();
@@ -100,28 +117,19 @@ SHOULD_WAIT_FOR_USER LoadPlayer(Utils& utils, GameState& state)
 	std::string heroFileName;
 	std::getline(std::cin, heroFileName);
 
-	std::ifstream heroFile(BuildHeroFileName(heroFileName));
-
-	Character* hero = nullptr;
-
-	if (heroFile.is_open())
+	if (LoadPlayer(state, heroFileName))
 	{
-		hero = new Character();
-		heroFile >> *hero;
-
 		utils.ClearScreen();
-		std::cout << "Player " << hero->Name() << " have been loaded." << std::endl;
+		std::cout << "Player " << state.hero->Name() << " have been loaded." << std::endl;
 		utils.PrintEmptyLine();
 		utils.PrintEmptyLine();
 
-		std::cout << hero->FullStat();
+		std::cout << state.hero->FullStat();
 	}
 	else
 	{
 		std::cerr << "Unable to locate save file for hero " << heroFileName << std::endl;
 	}
-
-	state.hero = std::shared_ptr<Character>(hero);
 
 	return true;
 }
@@ -143,6 +151,20 @@ SHOULD_WAIT_FOR_USER SavePlayer(Utils& utils, GameState& state)
 	else
 	{
 		std::cerr << "Unable to create save file." << std::endl;
+	}
+
+	return true;
+}
+
+SHOULD_WAIT_FOR_USER ShowPlayer(Utils& utils, GameState& state)
+{
+	if (nullptr == state.hero)
+	{
+		std::cerr << "Unable to show stats. No hero stored in memory." << std::endl;
+	}
+	else 
+	{
+		std::cout << state.hero->FullStat();
 	}
 
 	return true;

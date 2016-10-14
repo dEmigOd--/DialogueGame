@@ -241,3 +241,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /DialogueGame/main.cpp
+/DialogueGame/*.dat
