@@ -30,6 +30,9 @@
     <ClCompile Include="EnemyGenerator.cpp">
       <Filter>Source Files\Arena</Filter>
     </ClCompile>
+    <ClCompile Include="GameMenus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -55,6 +58,18 @@
     </ClInclude>
     <ClInclude Include="EnemyGenerator.h">
       <Filter>Header Files\Arena</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMenus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
