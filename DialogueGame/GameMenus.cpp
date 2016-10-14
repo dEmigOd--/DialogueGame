@@ -104,7 +104,7 @@ SHOULD_WAIT_FOR_USER LoadPlayer(Utils& utils, GameState& state)
 
 	Character* hero = nullptr;
 
-	if (!heroFile.bad())
+	if (heroFile.is_open())
 	{
 		hero = new Character();
 		heroFile >> *hero;

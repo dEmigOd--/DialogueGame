@@ -43,6 +43,11 @@ private:
 	}
 
 public:
+	~Game()
+	{
+		SavePlayer(utils, state);
+	}
+
 	void PrintWelcomeMessage() const
 	{
 		std::cout << "Welcome to DialogueGame!" << std::endl;
