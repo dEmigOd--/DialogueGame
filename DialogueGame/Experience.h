@@ -57,4 +57,11 @@ public:
 
 		return high;
 	}
+
+	int GetExperienceForLevel(int level) const
+	{
+		_ASSERT(initialized);
+
+		return Levels[level];
+	}
 };

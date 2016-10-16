@@ -7,10 +7,13 @@
 bool ExperienceManager::initialized;
 int ExperienceManager::Levels[];
 
-void TestExperienceManager()
+void Initialize()
 {
 	ExperienceManager::Initialize();
+}
 
+void TestExperienceManager()
+{
 	ExperienceManager mgr;
 
 	Character* ch = &TestableCharacter();
@@ -41,9 +44,25 @@ void TestExperienceManager()
 
 }
 
+void TestRightLevelExperienceCalculated()
+{
+	ExperienceManager mgr;
+
+	_ASSERT_EXPR(0 == mgr.GetExperienceForLevel(0), "Failed to calculate level 0 experience.");
+	_ASSERT_EXPR(1000 == mgr.GetExperienceForLevel(1), "Failed to calculate level 1 experience.");
+	_ASSERT_EXPR(100000 == mgr.GetExperienceForLevel(10), "Failed to calculate level 10 experience");
+	_ASSERT_EXPR(15000 == mgr.GetExperienceForLevel(5), "Failed to calculate level 5 experience");
+	_ASSERT_EXPR(99100000 == mgr.GetExperienceForLevel(100), "Failed to calculate level 100 experience");
+}
+
 int main()
 {
+	Initialize();
+
 	TestExperienceManager();
+	TestRightLevelExperienceCalculated();
+
+	std::cout << "Great Success. All tests passed" << std::endl;
 
 	return 0;
 }

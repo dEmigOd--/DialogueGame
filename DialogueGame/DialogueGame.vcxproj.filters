@@ -47,9 +47,6 @@
     <ClInclude Include="ReadWriteToFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Experience.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyGenerator.h">
       <Filter>Header Files\Arena</Filter>
     </ClInclude>
@@ -79,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Profiles.h">
       <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Experience.h">
+      <Filter>Header Files\Arena</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
