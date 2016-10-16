@@ -77,5 +77,8 @@
     <ClInclude Include="Skills.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

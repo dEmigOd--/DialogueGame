@@ -116,7 +116,7 @@ public:
 	{
 	}
 
-	BasicSkillVectorReaderWriter(const std::map<BasicSkill, int>& skills)
+	BasicSkillVectorReaderWriter(const CharacterProfile& skills)
 		: skills(skills)
 	{
 	}
