@@ -9,7 +9,7 @@ class Character : public NamedObject, public ReadWriteToFile
 {
 private:
 	std::map<std::string, Skill> skills;
-	std::map<BasicSkill, int> basicSkills;
+	CharacterProfile basicSkills;
 	int experience;
 	int unassignedPoints;
 

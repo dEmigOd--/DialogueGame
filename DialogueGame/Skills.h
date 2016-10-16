@@ -11,7 +11,7 @@ class Skill : public NamedObject, public ReadWriteToFile
 protected:
 	int baseLevel;
 	int addedLevel;
-	std::map<BasicSkill, int> baseSkills;
+	CharacterProfile baseSkills;
 
 public:
 	Skill()
@@ -173,10 +173,10 @@ inline std::istream& operator>>(std::istream& is, Skill& skill)
 class SkillCreator {
 	Skill CreateBaseSkill(BasicSkill skill, int baseLevel, int multiplier)
 	{
-		std::map<BasicSkill, int> underlying(EmptySkillsBag());
-		underlying[skill] = multiplier;
+		CharacterProfile profile(EmptySkillsBag());
+		profile[skill] = multiplier;
 
-		return Skill(ToString(skill), baseLevel, underlying);
+		return Skill(ToString(skill), baseLevel, profile);
 	}
 public:
 

@@ -160,6 +160,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NamedObject.h" />
+    <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="ReadWriteToFile.h" />
     <ClInclude Include="Skills.h" />
     <ClInclude Include="Utils.h" />

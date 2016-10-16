@@ -51,7 +51,7 @@ inline std::ostream& operator<<(std::ostream& os, BasicSkill skill)
 	return os << ToString(skill);
 }
 
-
+typedef std::map<BasicSkill, int> CharacterProfile;
 
 namespace std
 {
@@ -97,7 +97,7 @@ inline BasicSkill operator*(BasicSkill c)
 
 inline std::map<BasicSkill, int> EmptySkillsBag()
 {
-	std::map<BasicSkill, int> bag;
+	CharacterProfile bag;
 
 	for (BasicSkill skill = BasicSkill::SkillBegin; skill < BasicSkill::SkillEnd; ++skill)
 	{
@@ -109,7 +109,7 @@ inline std::map<BasicSkill, int> EmptySkillsBag()
 
 class BasicSkillVectorReaderWriter : ReadWriteToFile
 {
-	std::map<BasicSkill, int> skills;
+	CharacterProfile skills;
 public:
 
 	BasicSkillVectorReaderWriter()
@@ -132,7 +132,7 @@ public:
 
 	virtual std::istream& ReadFromStream(std::istream& is)
 	{
-		std::map<BasicSkill, int> readSkills;
+		CharacterProfile readSkills;
 
 		int bskill, value;
 
