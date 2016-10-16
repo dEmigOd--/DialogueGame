@@ -35,13 +35,23 @@ private:
 		Menu* loadHero = new DeepestMenu("Load Hero", Menu::OnCallCallback(LoadPlayer));
 		Menu* saveHero = new DeepestMenu("Save Hero", Menu::OnCallCallback(SavePlayer));
 		Menu* showHero = new DeepestMenu("Show Hero", Menu::OnCallCallback(ShowPlayer));
-		Menu* generateEnemy = new DeepestMenu("Generate Random Enemy", Menu::OnCallCallback(GenerateEnemy));
+		Menu* generateEnemy = new ExitableMenu("Generate Enemy", Menu::OnCallCallback(Menu::DoNothing));
 
 		mainMenu->AddSubMenu(createHero);
 		mainMenu->AddSubMenu(loadHero);
 		mainMenu->AddSubMenu(saveHero);
 		mainMenu->AddSubMenu(showHero);
 		mainMenu->AddSubMenu(generateEnemy);
+
+		Menu* generateUnskilledEnemy = new DeepestMenu("Generate unskilled Enemy", Menu::OnCallCallback(GenerateDefaultEnemy));
+		Menu* generateWarriorEnemy = new DeepestMenu("Generate Warrior", Menu::OnCallCallback(GenerateWarriorEnemy));
+		Menu* generateRogueEnemy = new DeepestMenu("Generate Rogue", Menu::OnCallCallback(GenerateRogueEnemy));
+		Menu* generateWizardEnemy = new DeepestMenu("Generate Wizard", Menu::OnCallCallback(GenerateWizardEnemy));
+
+		generateEnemy->AddSubMenu(generateUnskilledEnemy);
+		generateEnemy->AddSubMenu(generateWarriorEnemy);
+		generateEnemy->AddSubMenu(generateRogueEnemy);
+		generateEnemy->AddSubMenu(generateWizardEnemy);
 
 		return mainMenu;
 	}

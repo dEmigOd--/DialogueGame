@@ -17,23 +17,29 @@ public:
 		profile[Durability]	+= 1;
 		profile[Stamina]	+= 1;
 		profile[Strength]	+= 2;
+
+		return profile;
 	}
 
 	static CharacterProfile RogueProfile()
 	{
 		CharacterProfile profile;
 
-		profile[Agility] += 1;
-		profile[Dexterity] += 1;
-		profile[Reflexes] += 1;
-		profile[Speed] += 1;
+		profile[Agility]	+= 1;
+		profile[Dexterity]	+= 1;
+		profile[Reflexes]	+= 1;
+		profile[Speed]		+= 1;
+
+		return profile;
 	}
 
 	static CharacterProfile WizardProfile()
 	{
 		CharacterProfile profile;
 
-		profile[Intelligence] += 3;
-		profile[Reflexes] += 1;
+		profile[Intelligence]	+= 3;
+		profile[Reflexes]		+= 1;
+
+		return profile;
 	}
 };

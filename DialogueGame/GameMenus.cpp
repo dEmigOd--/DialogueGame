@@ -2,6 +2,9 @@
 #include <algorithm>
 #include "GameMenus.h"
 #include "EnemyGenerator.h"
+#include "Profiles.h"
+
+#define WAIT_FOR_USER(funcCall) (funcCall); return true
 
 std::string BuildHeroFileName(const std::string& heroName)
 {
@@ -190,3 +193,44 @@ SHOULD_WAIT_FOR_USER GenerateEnemy(Utils& utils, GameState& state)
 
 	return true;
 }
+
+void GenerateGeneralEnemy(Utils& utils, GameState& state, const CharacterProfile& profile)
+{
+	static EnemyGenerator eGenerator;
+
+	std::cout << "Please provide enemy level to generate..." << std::endl;
+
+	int enemyLevel;
+	std::cin >> enemyLevel;
+
+	Character enemy = eGenerator.Generate(enemyLevel, 5, profile);
+
+	utils.ClearScreen();
+	std::cout << enemy.Name() << " generated." << std::endl;
+	utils.PrintEmptyLine();
+	utils.PrintEmptyLine();
+
+	std::cout << enemy.FullStat();
+}
+
+SHOULD_WAIT_FOR_USER GenerateDefaultEnemy(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(GenerateGeneralEnemy(utils, state, ProfileCreator::DefaultProfile()));
+}
+
+SHOULD_WAIT_FOR_USER GenerateWarriorEnemy(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(GenerateGeneralEnemy(utils, state, ProfileCreator::WarriorProfile()));
+}
+
+SHOULD_WAIT_FOR_USER GenerateRogueEnemy(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(GenerateGeneralEnemy(utils, state, ProfileCreator::RogueProfile()));
+}
+
+SHOULD_WAIT_FOR_USER GenerateWizardEnemy(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(GenerateGeneralEnemy(utils, state, ProfileCreator::WizardProfile()));
+}
+
+#undef WAIT_FOR_USER
