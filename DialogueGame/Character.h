@@ -4,13 +4,14 @@
 #include <map>
 #include "NamedObject.h"
 #include "Skills.h"
+#include "Experience.h"
 
 class Character : public NamedObject, public ReadWriteToFile
 {
 private:
 	std::map<std::string, Skill> skills;
 	CharacterProfile basicSkills;
-	int experience;
+	Experience experience;
 	int unassignedPoints;
 
 public:
@@ -42,12 +43,12 @@ public:
 		unassignedPoints -= value;
 	}
 
-	virtual void AddExperience(int addedExperience)
+	virtual void AddExperience(Experience addedExperience)
 	{
 		experience += addedExperience;
 	}
 
-	virtual int Experience() const
+	virtual Experience Experience() const
 	{
 		return experience;
 	}

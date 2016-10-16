@@ -149,7 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DialogueGame\Character.h" />
-    <ClInclude Include="..\DialogueGame\Experience.h" />
+    <ClInclude Include="..\DialogueGame\ExperienceManager.h" />
     <ClInclude Include="TestableCharacter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

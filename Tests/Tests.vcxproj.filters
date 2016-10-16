@@ -23,13 +23,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\DialogueGame\Experience.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\DialogueGame\Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestableCharacter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DialogueGame\ExperienceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 // Tests.cpp : Defines the entry point for the console application.
 //
 
-#include "../DialogueGame/Experience.h"
+#include "../DialogueGame/ExperienceManager.h"
 #include "TestableCharacter.h"
 
 bool ExperienceManager::initialized;

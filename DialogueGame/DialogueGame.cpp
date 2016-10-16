@@ -11,7 +11,7 @@
 #include "Skills.h"
 #include "GameMenus.h"
 #include "EnemyGenerator.h"
-#include "Experience.h"
+#include "ExperienceManager.h"
 #include "Menu.h"
 // check out Windows specific
 #include <stdlib.h>

@@ -77,8 +77,14 @@
     <ClInclude Include="Profiles.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Experience.h">
+    <ClInclude Include="BattleResult.h">
       <Filter>Header Files\Arena</Filter>
+    </ClInclude>
+    <ClInclude Include="ExperienceManager.h">
+      <Filter>Header Files\Arena</Filter>
+    </ClInclude>
+    <ClInclude Include="Experience.h">
+      <Filter>Header Files\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

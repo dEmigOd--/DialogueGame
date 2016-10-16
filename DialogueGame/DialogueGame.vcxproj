@@ -152,10 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicSkills.h" />
+    <ClInclude Include="BattleResult.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="Experience.h" />
+    <ClInclude Include="ExperienceManager.h" />
     <ClInclude Include="GameMenus.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Menu.h" />
