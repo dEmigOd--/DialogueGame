@@ -160,6 +160,7 @@
     <ClInclude Include="ExperienceManager.h" />
     <ClInclude Include="GameMenus.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IBattleManager.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NamedObject.h" />
     <ClInclude Include="Profiles.h" />

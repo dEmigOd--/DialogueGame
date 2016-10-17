@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Character">
       <UniqueIdentifier>{16ec33a2-907d-4f47-bae6-1c6fe987e22f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Arena\BattleManagement">
+      <UniqueIdentifier>{4f17529e-1b05-408e-94bf-699e2884ac7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Experience.h">
       <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="IBattleManager.h">
+      <Filter>Header Files\Arena\BattleManagement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
