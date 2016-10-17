@@ -129,6 +129,7 @@ inline std::istream& operator >> (std::istream& is, Game& gm)
 int main()
 {
 	// ok, bla-bla your first change ever!
+	// super it is working
 	Game game;
 
 	game.PrintWelcomeMessage();
