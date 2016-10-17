@@ -14,6 +14,12 @@ SHOULD_WAIT_FOR_USER SavePlayer(Utils& utils, GameState& state);
 
 SHOULD_WAIT_FOR_USER ShowPlayer(Utils& utils, GameState& state);
 
+SHOULD_WAIT_FOR_USER EnterArena(Utils& utils, GameState& state);
+
+SHOULD_WAIT_FOR_USER GenerateWeakFoe(Utils& utils, GameState& state);
+SHOULD_WAIT_FOR_USER GenerateEqualFoe(Utils& utils, GameState& state);
+SHOULD_WAIT_FOR_USER GenerateStrongFoe(Utils& utils, GameState& state);
+
 SHOULD_WAIT_FOR_USER GenerateEnemy(Utils& utils, GameState& state);
 
 SHOULD_WAIT_FOR_USER GenerateDefaultEnemy(Utils& utils, GameState& state);

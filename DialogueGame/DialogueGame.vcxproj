@@ -149,9 +149,11 @@
     <ClCompile Include="DialogueGame.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="GameMenus.cpp" />
+    <ClCompile Include="RandomBattleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicSkills.h" />
+    <ClInclude Include="Battle.h" />
     <ClInclude Include="BattleResult.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Common.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NamedObject.h" />
     <ClInclude Include="Profiles.h" />
+    <ClInclude Include="RandomBattleManager.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="ReadWriteToFile.h" />
     <ClInclude Include="Skills.h" />

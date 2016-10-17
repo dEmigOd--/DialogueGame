@@ -43,6 +43,11 @@ public:
 		unassignedPoints -= value;
 	}
 
+	int SkillLevel(const BasicSkill& skill) const
+	{
+		return basicSkills.at(skill);
+	}
+
 	virtual void AddExperience(Experience addedExperience)
 	{
 		experience += addedExperience;
@@ -58,6 +63,7 @@ public:
 	virtual std::string FullStat() const
 	{
 		std::string retValue = "Player Name: " + Name() + ENDL() +
+			" Experience: " + std::to_string(Experience()) + ENDL() +
 			" Base skills: " + ENDL();
 		
 		for (BasicSkill skill = BasicSkill::SkillBegin; skill < BasicSkill::SkillEnd; ++skill)

@@ -2,9 +2,16 @@
 #include <algorithm>
 #include "GameMenus.h"
 #include "EnemyGenerator.h"
+#include "RandomBattleManager.h"
+#include "ExperienceManager.h"
+#include "Battle.h"
 #include "Profiles.h"
 
 #define WAIT_FOR_USER(funcCall) (funcCall); return true
+
+ExperienceManager eManager;
+EnemyGenerator eGenerator;
+static std::shared_ptr<IRNG<int>> IntDice;
 
 std::string BuildHeroFileName(const std::string& heroName)
 {
@@ -173,10 +180,54 @@ SHOULD_WAIT_FOR_USER ShowPlayer(Utils& utils, GameState& state)
 	return true;
 }
 
+SHOULD_WAIT_FOR_USER EnterArena(Utils& utils, GameState& state)
+{
+	utils.ClearScreen();
+	if (state.hero == nullptr)
+	{
+		std::cout << "Please create/load hero before proceeding to Arena" << std::endl;
+		return true;
+	}
+
+	return false;
+}
+
+void ClashWithFoe(Utils& utils, GameState& state, int levelAdvancement)
+{
+	static std::shared_ptr<IBattleManager> manager(new RandomBattleManager());
+
+	int enemyLevel = std::max(0, eManager.GetLevel(*state.hero) + levelAdvancement);
+	Character enemy = eGenerator.Generate(enemyLevel, 5);
+
+	Duel duel(*state.hero, enemy);
+
+	utils.ClearScreen();
+	std::cout << "Fight between " << state.hero->Name() << " and " << enemy.Name() << std::endl;
+	utils.PrintEmptyLine();
+
+	duel.Fight(manager);
+
+	std::cout << "\tResult:" << std::endl;
+	std::cout << duel;
+}
+
+SHOULD_WAIT_FOR_USER GenerateWeakFoe(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(ClashWithFoe(utils, state, -IntDice->get(0, 2)));
+}
+
+SHOULD_WAIT_FOR_USER GenerateEqualFoe(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(ClashWithFoe(utils, state, 0));
+}
+
+SHOULD_WAIT_FOR_USER GenerateStrongFoe(Utils& utils, GameState& state)
+{
+	WAIT_FOR_USER(ClashWithFoe(utils, state, IntDice->get(0, 3)));
+}
+
 SHOULD_WAIT_FOR_USER GenerateEnemy(Utils& utils, GameState& state)
 {
-	static EnemyGenerator eGenerator;
-
 	std::cout << "Please provide enemy level to generate..." << std::endl;
 
 	int enemyLevel;
@@ -196,8 +247,6 @@ SHOULD_WAIT_FOR_USER GenerateEnemy(Utils& utils, GameState& state)
 
 void GenerateGeneralEnemy(Utils& utils, GameState& state, const CharacterProfile& profile)
 {
-	static EnemyGenerator eGenerator;
-
 	std::cout << "Please provide enemy level to generate..." << std::endl;
 
 	int enemyLevel;

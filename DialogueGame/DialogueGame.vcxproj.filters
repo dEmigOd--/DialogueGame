@@ -42,6 +42,9 @@
     <ClCompile Include="GameMenus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RandomBattleManager.cpp">
+      <Filter>Source Files\Arena\BattleManagement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -94,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="IBattleManager.h">
       <Filter>Header Files\Arena\BattleManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomBattleManager.h">
+      <Filter>Header Files\Arena\BattleManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>Header Files\Arena</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

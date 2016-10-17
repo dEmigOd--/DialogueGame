@@ -15,3 +15,4 @@ public:
 	Experience leftPlayerGain;
 	Experience rightPlayerGain;
 };
+

@@ -35,14 +35,15 @@ private:
 		Menu* loadHero = new DeepestMenu("Load Hero", Menu::OnCallCallback(LoadPlayer));
 		Menu* saveHero = new DeepestMenu("Save Hero", Menu::OnCallCallback(SavePlayer));
 		Menu* showHero = new DeepestMenu("Show Hero", Menu::OnCallCallback(ShowPlayer));
-		Menu* generateEnemy = new ExitableMenu("Generate Enemy", Menu::OnCallCallback(Menu::DoNothing));
+		Menu* arena = new ExitableMenu("Enter Arena", Menu::OnCallCallback(EnterArena));
 
 		mainMenu->AddSubMenu(createHero);
 		mainMenu->AddSubMenu(loadHero);
 		mainMenu->AddSubMenu(saveHero);
 		mainMenu->AddSubMenu(showHero);
-		mainMenu->AddSubMenu(generateEnemy);
+		mainMenu->AddSubMenu(arena);
 
+		Menu* generateEnemy = new ExitableMenu("Generate Enemy", Menu::OnCallCallback(Menu::DoNothing));
 		Menu* generateUnskilledEnemy = new DeepestMenu("Generate unskilled Enemy", Menu::OnCallCallback(GenerateDefaultEnemy));
 		Menu* generateWarriorEnemy = new DeepestMenu("Generate Warrior", Menu::OnCallCallback(GenerateWarriorEnemy));
 		Menu* generateRogueEnemy = new DeepestMenu("Generate Rogue", Menu::OnCallCallback(GenerateRogueEnemy));
@@ -52,6 +53,18 @@ private:
 		generateEnemy->AddSubMenu(generateWarriorEnemy);
 		generateEnemy->AddSubMenu(generateRogueEnemy);
 		generateEnemy->AddSubMenu(generateWizardEnemy);
+
+		Menu* randomClash = new ExitableMenu("Random Clash", Menu::OnCallCallback(Menu::DoNothing));
+		Menu* weakRival = new DeepestMenu("Weak rival", Menu::OnCallCallback(GenerateWeakFoe));
+		Menu* equalRival = new DeepestMenu("Equal rival", Menu::OnCallCallback(GenerateEqualFoe));
+		Menu* strongRival = new DeepestMenu("Strong rival", Menu::OnCallCallback(GenerateStrongFoe));
+
+		randomClash->AddSubMenu(weakRival);
+		randomClash->AddSubMenu(equalRival);
+		randomClash->AddSubMenu(strongRival);
+
+		arena->AddSubMenu(generateEnemy);
+		arena->AddSubMenu(randomClash);
 
 		return mainMenu;
 	}
@@ -128,8 +141,8 @@ inline std::istream& operator >> (std::istream& is, Game& gm)
 
 int main()
 {
-	// ok, bla-bla your first change ever!
-	// super it is working
+	ExperienceManager::Initialize();
+
 	Game game;
 
 	game.PrintWelcomeMessage();
