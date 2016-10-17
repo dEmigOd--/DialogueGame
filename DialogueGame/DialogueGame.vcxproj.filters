@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Arena\BattleManagement">
       <UniqueIdentifier>{4f17529e-1b05-408e-94bf-699e2884ac7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Arena\BattleManagement">
+      <UniqueIdentifier>{850614ba-a87f-467e-a3e7-582a33f6f026}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
