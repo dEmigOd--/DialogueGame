@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Arena\BattleManagement">
       <UniqueIdentifier>{850614ba-a87f-467e-a3e7-582a33f6f026}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{91eb1be6-25ae-44e5-bdc6-886243f7f61f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -58,15 +61,6 @@
     </ClInclude>
     <ClInclude Include="EnemyGenerator.h">
       <Filter>Header Files\Arena</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMenus.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
@@ -103,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="Battle.h">
       <Filter>Header Files\Arena</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMenus.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

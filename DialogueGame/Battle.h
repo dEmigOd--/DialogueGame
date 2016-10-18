@@ -18,7 +18,7 @@ public:
 	{
 	}
 
-	void Fight(const std::shared_ptr<IBattleManager>& manager)
+	void Fight(IBattleManager*  manager)
 	{
 		duelOutcome = manager->Clash(leftCombatant, rightCombatant);
 

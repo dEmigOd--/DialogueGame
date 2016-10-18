@@ -95,7 +95,7 @@ public:
 
 	void DisplayMainMenu()
 	{
-		std::shared_ptr<Menu> mainMenu = std::shared_ptr<Menu>(CreateMainMenu());
+		auto mainMenu = std::auto_ptr<Menu>(CreateMainMenu());
 
 		while (mainMenu->OnCall(utils, state));
 	}

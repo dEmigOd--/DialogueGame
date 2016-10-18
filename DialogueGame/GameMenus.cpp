@@ -11,7 +11,7 @@
 
 ExperienceManager eManager;
 EnemyGenerator eGenerator;
-static std::shared_ptr<IRNG<int>> IntDice;
+static std::auto_ptr<IRNG<int>> IntDice;
 
 std::string BuildHeroFileName(const std::string& heroName)
 {
@@ -194,7 +194,7 @@ SHOULD_WAIT_FOR_USER EnterArena(Utils& utils, GameState& state)
 
 void ClashWithFoe(Utils& utils, GameState& state, int levelAdvancement)
 {
-	static std::shared_ptr<IBattleManager> manager(new RandomBattleManager());
+	static std::auto_ptr<IBattleManager> manager(new RandomBattleManager());
 
 	int enemyLevel = std::max(0, eManager.GetLevel(*state.hero) + levelAdvancement);
 	Character enemy = eGenerator.Generate(enemyLevel, 5);
@@ -205,7 +205,7 @@ void ClashWithFoe(Utils& utils, GameState& state, int levelAdvancement)
 	std::cout << "Fight between " << state.hero->Name() << " and " << enemy.Name() << std::endl;
 	utils.PrintEmptyLine();
 
-	duel.Fight(manager);
+	duel.Fight(manager.get());
 
 	std::cout << "\tResult:" << std::endl;
 	std::cout << duel;
