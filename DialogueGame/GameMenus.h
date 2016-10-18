@@ -5,10 +5,11 @@
 typedef bool SHOULD_WAIT_FOR_USER;
 
 SHOULD_WAIT_FOR_USER AddPlayer(Utils& utils, GameState& state);
+SHOULD_WAIT_FOR_USER AssignUnassignedPoints(Utils& utils, GameState& state);
 
 SHOULD_WAIT_FOR_USER LoadPlayer(Utils& utils, GameState& state);
 
-bool LoadPlayer(GameState& state, const std::string& heroName);
+bool LoadPlayer(GameState& state, const std::string& heroName); // need to move this out of here
 
 SHOULD_WAIT_FOR_USER SavePlayer(Utils& utils, GameState& state);
 

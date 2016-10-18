@@ -107,5 +107,8 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="CoreExperienceManager.h">
+      <Filter>Header Files\Arena</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

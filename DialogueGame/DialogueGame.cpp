@@ -16,8 +16,8 @@
 // check out Windows specific
 #include <stdlib.h>
 
-bool ExperienceManager::initialized;
-int ExperienceManager::Levels[];
+bool CoreExperienceManager::initialized;
+int CoreExperienceManager::Levels[];
 
 class Game : public ReadWriteToFile
 {
@@ -31,7 +31,8 @@ private:
 	{
 		Menu* mainMenu = new ExitableMenu("Main Menu", Menu::OnCallCallback(Menu::DoNothing));
 
-		Menu* createHero = new DeepestMenu("Create New Hero", Menu::OnCallCallback(AddPlayer));
+		Menu* createHero = new DeepestMenu("Create New Hero", Menu::OnCallCallback(AddPlayer), 
+			Menu::BeforeCallCallback(Menu::DoNothing), Menu::AfterCallCallback(AssignUnassignedPoints));
 		Menu* loadHero = new DeepestMenu("Load Hero", Menu::OnCallCallback(LoadPlayer));
 		Menu* saveHero = new DeepestMenu("Save Hero", Menu::OnCallCallback(SavePlayer));
 		Menu* showHero = new DeepestMenu("Show Hero", Menu::OnCallCallback(ShowPlayer));
@@ -54,7 +55,8 @@ private:
 		generateEnemy->AddSubMenu(generateRogueEnemy);
 		generateEnemy->AddSubMenu(generateWizardEnemy);
 
-		Menu* randomClash = new ExitableMenu("Random Clash", Menu::OnCallCallback(Menu::DoNothing));
+		Menu* randomClash = new ExitableMenu("Random Clash", Menu::OnCallCallback(Menu::DoNothing),
+			Menu::BeforeCallCallback(Menu::DoNothing), Menu::AfterCallCallback(AssignUnassignedPoints));
 		Menu* weakRival = new DeepestMenu("Weak rival", Menu::OnCallCallback(GenerateWeakFoe));
 		Menu* equalRival = new DeepestMenu("Equal rival", Menu::OnCallCallback(GenerateEqualFoe));
 		Menu* strongRival = new DeepestMenu("Strong rival", Menu::OnCallCallback(GenerateStrongFoe));
@@ -141,7 +143,7 @@ inline std::istream& operator >> (std::istream& is, Game& gm)
 
 int main()
 {
-	ExperienceManager::Initialize();
+	CoreExperienceManager::Initialize();
 
 	Game game;
 

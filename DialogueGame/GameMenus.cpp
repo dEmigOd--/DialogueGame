@@ -11,7 +11,7 @@
 
 ExperienceManager eManager;
 EnemyGenerator eGenerator;
-static std::auto_ptr<IRNG<int>> IntDice;
+static std::auto_ptr<IRNG<int>> IntDice = std::auto_ptr<IRNG<int>>(new PRNG<int>());
 
 std::string BuildHeroFileName(const std::string& heroName)
 {
@@ -24,18 +24,23 @@ void PrintBasicSkill(BasicSkill skill)
 }
 
 
-void AwardBonusPointsToPlayer(Utils& utils, GameState& state)
-{
-	utils.ClearScreen();
-	int awardedPoints = 5;
-	std::cout << "You've been awarded " << awardedPoints << " skill points." << std::endl;
+SHOULD_WAIT_FOR_USER AssignUnassignedPoints(Utils& utils, GameState& state)
+{	
+	if (state.hero->UnassignedSkillPoints() <= 0)
+	{
+		return false;
+	}
+
+	std::cout << "You've " << state.hero->UnassignedSkillPoints() << " unassigned skill points." << std::endl;
 	utils.Pause();
 
-	while (awardedPoints > 0)
+	utils.ClearInputBuffer();
+
+	while (state.hero->UnassignedSkillPoints() > 0)
 	{
 		utils.ClearScreen();
-		std::cout << "Please spend some points(" << awardedPoints << ") on the skills in the below list." << std::endl;
-		std::cout << "Choose a pair of skill/value Or press 0 to finish." << std::endl;
+		std::cout << "Please spend some points(" << state.hero->UnassignedSkillPoints() << ") on the skills in the below list." << std::endl;
+		std::cout << "Choose a pair of skill/value [in separated list] Or press 0 to assign later." << std::endl;
 		utils.PrintEmptyLine();
 		utils.PrintEmptyLine();
 
@@ -45,30 +50,24 @@ void AwardBonusPointsToPlayer(Utils& utils, GameState& state)
 		std::cin >> wantedSkill;
 
 		if (wantedSkill == 0) break;
-		if (wantedSkill < Accuracy + 1 || wantedSkill > Strength + 1)
+		if (wantedSkill < SkillBegin + 1 || wantedSkill > SkillEnd)
 		{
 			std::cerr << "Wrong skill picked." << std::endl;
 			continue;
 		}
 
 		std::cin >> wantedValue;
-		if (wantedValue <= 0 || wantedValue > awardedPoints)
+		if (wantedValue <= 0 || wantedValue > state.hero->UnassignedSkillPoints())
 		{
 			std::cerr << "Wrong number of points tried to be spent." << std::endl;
 			continue;
 		}
 
 		// ok everything is ok
-		awardedPoints -= wantedValue;
 		state.hero->AddBasicSkill(static_cast<BasicSkill>(wantedSkill - 1), wantedValue);
 	}
 
-	utils.ClearScreen();
-	std::cout << "Player after initial upgrade." << std::endl;
-	utils.PrintEmptyLine();
-	utils.PrintEmptyLine();
-
-	std::cout << state.hero->FullStat();
+	return false;
 }
 
 SHOULD_WAIT_FOR_USER AddPlayer(Utils& utils, GameState& state)
@@ -95,9 +94,6 @@ SHOULD_WAIT_FOR_USER AddPlayer(Utils& utils, GameState& state)
 	std::cout << playerCharacter->FullStat();
 
 	state.hero = std::shared_ptr<Character>(playerCharacter);
-
-	utils.Pause();
-	AwardBonusPointsToPlayer(utils, state);
 
 	return true;
 }

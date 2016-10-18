@@ -39,11 +39,12 @@ private:
 
 			std::cin >> userChoice;
 
-			if (userChoice < 1 || userChoice > numSubMenus)
-				return true;
-
-			// exitable menus
+			// handle exitable menus
 			if (userChoice > subMenus.size())
+				return false;
+
+			// on wrong input exit current menu
+			if (userChoice < 1 || userChoice > numSubMenus)
 				return false;
 
 			bool runForever = true;
@@ -172,8 +173,10 @@ public:
 	}
 
 public:
-	DeepestMenu(const std::string& text, OnCallCallback callback)
-		: Menu(text, callback)
+	DeepestMenu(const std::string& text, OnCallCallback onCall,
+		BeforeCallCallback beforeCall = Menu::BeforeCallCallback(Menu::DoNothing),
+		AfterCallCallback afterCall = Menu::AfterCallCallback(Menu::DoNothing))
+		: Menu(text, onCall, beforeCall, afterCall)
 	{}
 };
 
@@ -190,7 +193,9 @@ protected:
 	}
 
 public:
-	ExitableMenu(const std::string& text, OnCallCallback callback)
-		: Menu(text, callback)
+	ExitableMenu(const std::string& text, OnCallCallback onCall,
+		BeforeCallCallback beforeCall = Menu::BeforeCallCallback(Menu::DoNothing),
+		AfterCallCallback afterCall = Menu::AfterCallCallback(Menu::DoNothing))
+		: Menu(text, onCall, beforeCall, afterCall)
 	{}
 };

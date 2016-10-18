@@ -5,10 +5,15 @@
 #include "NamedObject.h"
 #include "Skills.h"
 #include "Experience.h"
+#include "CoreExperienceManager.h"
+
+static CoreExperienceManager expManager;
 
 class Character : public NamedObject, public ReadWriteToFile
 {
 private:
+	static const int SkillPointsPerLevel = 5;
+
 	std::map<std::string, Skill> skills;
 	CharacterProfile basicSkills;
 	Experience experience;
@@ -19,7 +24,7 @@ public:
 	{
 	}
 
-	Character(const std::string& name, int unassignedPoints)
+	Character(const std::string& name, int unassignedPoints = SkillPointsPerLevel)
 		: NamedObject(name), basicSkills(EmptySkillsBag()), experience(0), unassignedPoints(unassignedPoints)
 	{
 	}
@@ -43,6 +48,11 @@ public:
 		unassignedPoints -= value;
 	}
 
+	int UnassignedSkillPoints() const
+	{
+		return unassignedPoints;
+	}
+
 	int SkillLevel(const BasicSkill& skill) const
 	{
 		return basicSkills.at(skill);
@@ -50,7 +60,11 @@ public:
 
 	virtual void AddExperience(Experience addedExperience)
 	{
+		int currLevel = expManager.GetLevel(experience);
 		experience += addedExperience;
+		int nextLevel = expManager.GetLevel(experience);
+
+		unassignedPoints += SkillPointsPerLevel * (nextLevel - currLevel);
 	}
 
 	virtual Experience Experience() const
