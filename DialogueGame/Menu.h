@@ -10,17 +10,20 @@ class Menu
 {
 public:
 	typedef std::pointer_to_binary_function<Utils&, GameState&, bool> OnCallCallback;
+	typedef std::pointer_to_binary_function<Utils&, GameState&, bool> BeforeCallCallback;
+	typedef std::pointer_to_binary_function<Utils&, GameState&, bool> AfterCallCallback;
 
 private:
 	std::string text;
-	OnCallCallback ProcessMenuItem;
+	BeforeCallCallback BeforeMenuItem;
+	OnCallCallback OnMenuItem;
+	AfterCallCallback AfterMenuItem;
 	std::vector<std::shared_ptr<Menu>> subMenus;
 
 #define SUB_MENUS_PRESENT !subMenus.empty()
 
 	bool PrintMenu(Utils& utils, GameState& state) const
 	{
-//		utils.ClearInputBuffer();
 		utils.ClearScreen();
 
 		if (NeedToPrintHeader()) 
@@ -43,7 +46,17 @@ private:
 			if (userChoice > subMenus.size())
 				return false;
 
-			while (subMenus[userChoice - 1]->OnCall(utils, state));
+			bool runForever = true;
+
+			while (runForever)
+			{
+				// process pre-requisites to action
+				subMenus[userChoice - 1]->BeforeCall(utils, state);
+				// act
+				runForever = subMenus[userChoice - 1]->OnCall(utils, state);
+				// process results
+				subMenus[userChoice - 1]->AfterCall(utils, state);
+			}
 
 			return true;
 		}
@@ -93,8 +106,10 @@ public:
 		return false;
 	}
 
-	Menu(const std::string& text, OnCallCallback callback)
-		: text(text), ProcessMenuItem(callback)
+	Menu(const std::string& text, OnCallCallback onCall, 
+		BeforeCallCallback beforeCall = Menu::BeforeCallCallback(Menu::DoNothing), 
+		AfterCallCallback afterCall = Menu::AfterCallCallback(Menu::DoNothing))
+		: text(text), OnMenuItem(onCall), BeforeMenuItem(beforeCall), AfterMenuItem(afterCall)
 	{
 	}
 
@@ -106,14 +121,34 @@ public:
 #define SHOULD_REPEAT_CALL(x) (x)
 #define SHOULD_WAIT_FOR_USER(x) (x)
 
+	bool BeforeCall(Utils& utils, GameState& state) const
+	{
+		utils.ClearScreen();
+
+		if (SHOULD_WAIT_FOR_USER(BeforeMenuItem(utils, state)))
+			utils.Pause();
+
+		return false;
+	}
+
 	bool OnCall(Utils& utils, GameState& state) const
 	{
 		utils.ClearScreen();
 
-		if(SHOULD_WAIT_FOR_USER(ProcessMenuItem(utils, state)))
+		if(SHOULD_WAIT_FOR_USER(OnMenuItem(utils, state)))
 			utils.Pause();
 
 		return SHOULD_REPEAT_CALL(PrintMenu(utils, state));
+	}
+
+	bool AfterCall(Utils& utils, GameState& state) const
+	{
+		utils.ClearScreen();
+
+		if (SHOULD_WAIT_FOR_USER(AfterMenuItem(utils, state)))
+			utils.Pause();
+
+		return false;
 	}
 
 	virtual void AddSubMenu(Menu* subMenu)
