@@ -110,5 +110,11 @@
     <ClInclude Include="CoreExperienceManager.h">
       <Filter>Header Files\Arena</Filter>
     </ClInclude>
+    <ClInclude Include="VectorReaderWriter.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Traits.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

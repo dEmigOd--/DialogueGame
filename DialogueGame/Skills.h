@@ -4,6 +4,7 @@
 #include <map>
 #include "Common.h"
 #include "ReadWriteToFile.h"
+#include "VectorReaderWriter.h"
 #include "BasicSkills.h"
 
 class Skill : public NamedObject, public ReadWriteToFile
@@ -12,6 +13,8 @@ protected:
 	int baseLevel;
 	int addedLevel;
 	CharacterProfile baseSkills;
+
+	using BSVectorReaderWriter = VectorReaderWriter<CharacterProfile, BasicSkill, BasicSkill::SkillBegin, BasicSkill::SkillEnd>;
 
 public:
 	Skill()
@@ -137,7 +140,7 @@ public:
 		// write obj to stream
 		os << Name() << std::endl;
 		os << baseLevel << " " << addedLevel << std::endl;
-		os << BasicSkillVectorReaderWriter(baseSkills);
+		os << BSVectorReaderWriter(baseSkills);
 
 		return os;
 	}
@@ -151,7 +154,7 @@ public:
 		UpdateName(name);
 		is >> baseLevel >> addedLevel;
 
-		BasicSkillVectorReaderWriter rw;
+		BSVectorReaderWriter rw;
 		is >> rw;
 
 		baseSkills.swap(rw.Skills());
@@ -159,16 +162,6 @@ public:
 		return is;
 	}
 };
-
-inline std::ostream& operator<<(std::ostream& os, const Skill& skill)
-{
-	return skill.WriteToStream(os);
-}
-
-inline std::istream& operator>>(std::istream& is, Skill& skill)
-{
-	return skill.ReadFromStream(is);
-}
 
 class SkillCreator {
 	Skill CreateBaseSkill(BasicSkill skill, int baseLevel, int multiplier)

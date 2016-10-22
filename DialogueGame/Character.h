@@ -4,8 +4,10 @@
 #include <map>
 #include "NamedObject.h"
 #include "Skills.h"
+#include "Traits.h"
 #include "Experience.h"
 #include "CoreExperienceManager.h"
+#include "VectorReaderWriter.h"
 
 static CoreExperienceManager expManager;
 
@@ -16,8 +18,11 @@ private:
 
 	std::map<std::string, Skill> skills;
 	CharacterProfile basicSkills;
+	Exhaustables traits;
 	Experience experience;
 	int unassignedPoints;
+
+	using CVectorReaderWriter = VectorReaderWriter<CharacterProfile, BasicSkill, BasicSkill::SkillBegin, BasicSkill::SkillEnd>;
 
 public:
 	Character()
@@ -104,7 +109,7 @@ public:
 		}
 
 		os << std::endl;
-		os << BasicSkillVectorReaderWriter(basicSkills);
+		os << CVectorReaderWriter(basicSkills);
 		os << Experience() << " " << unassignedPoints << std::endl;
 
 		return os;
@@ -144,7 +149,7 @@ public:
 
 		skills.swap(storedSkills);
 
-		BasicSkillVectorReaderWriter rw;
+		CVectorReaderWriter rw;
 		is >> rw;
 
 		basicSkills.swap(rw.Skills());
@@ -154,13 +159,3 @@ public:
 		return is;
 	}
 };
-
-inline std::ostream& operator<<(std::ostream& os, const Character& ch)
-{
-	return ch.WriteToStream(os);
-}
-
-inline std::istream& operator>>(std::istream& is, Character& ch)
-{
-	return ch.ReadFromStream(is);
-}

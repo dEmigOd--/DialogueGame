@@ -130,17 +130,6 @@ public:
 	}
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Game& gm)
-{
-	return gm.WriteToStream(os);
-}
-
-inline std::istream& operator >> (std::istream& is, Game& gm)
-{
-	return gm.ReadFromStream(is);
-}
-
-
 int main()
 {
 	CoreExperienceManager::Initialize();

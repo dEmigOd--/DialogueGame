@@ -171,7 +171,9 @@
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="ReadWriteToFile.h" />
     <ClInclude Include="Skills.h" />
+    <ClInclude Include="Traits.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="VectorReaderWriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

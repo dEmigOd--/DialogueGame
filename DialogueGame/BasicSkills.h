@@ -23,23 +23,23 @@ inline std::string ToString(BasicSkill skill)
 {
 	switch (skill)
 	{
-	case Accuracy:
+	case BasicSkill::Accuracy:
 		return "Accuracy";
-	case Agility:
+	case BasicSkill::Agility:
 		return "Agility";
-	case Dexterity:
+	case BasicSkill::Dexterity:
 		return "Dexterity";
-	case Durability:
+	case BasicSkill::Durability:
 		return "Durability";
-	case Intelligence:
+	case BasicSkill::Intelligence:
 		return "Intelligence";
-	case Reflexes:
+	case BasicSkill::Reflexes:
 		return "Reflexes";
-	case Speed:
+	case BasicSkill::Speed:
 		return "Speed";
-	case Stamina:
+	case BasicSkill::Stamina:
 		return "Stamina";
-	case Strength:
+	case BasicSkill::Strength:
 		return "Strength";
 	default:
 		return "Unknown";
@@ -51,7 +51,7 @@ inline std::ostream& operator<<(std::ostream& os, BasicSkill skill)
 	return os << ToString(skill);
 }
 
-typedef std::map<BasicSkill, int> CharacterProfile;
+using CharacterProfile = std::map<BasicSkill, int> ;
 
 namespace std
 {
@@ -95,7 +95,7 @@ inline BasicSkill operator*(BasicSkill c)
 	return c;
 }
 
-inline std::map<BasicSkill, int> EmptySkillsBag()
+inline CharacterProfile EmptySkillsBag()
 {
 	CharacterProfile bag;
 
@@ -105,62 +105,5 @@ inline std::map<BasicSkill, int> EmptySkillsBag()
 	}
 
 	return bag;
-}
-
-class BasicSkillVectorReaderWriter : ReadWriteToFile
-{
-	CharacterProfile skills;
-public:
-
-	BasicSkillVectorReaderWriter()
-	{
-	}
-
-	BasicSkillVectorReaderWriter(const CharacterProfile& skills)
-		: skills(skills)
-	{
-	}
-
-	virtual std::ostream& WriteToStream(std::ostream& os) const
-	{
-		for (auto const& skill : skills)
-		{
-			os << static_cast<int>(skill.first) << " " << skill.second << std::endl;
-		}
-		return os;
-	}
-
-	virtual std::istream& ReadFromStream(std::istream& is)
-	{
-		CharacterProfile readSkills;
-
-		int bskill, value;
-
-		for (BasicSkill skill = BasicSkill::SkillBegin; skill < BasicSkill::SkillEnd; ++skill)
-		{
-			is >> bskill >> value;
-
-			readSkills.insert(std::make_pair(static_cast<BasicSkill>(skill), value));
-		}
-
-		skills.swap(readSkills);
-
-		return is;
-	}
-
-	std::map<BasicSkill, int> Skills() const
-	{
-		return skills;
-	}
-};
-
-inline std::ostream& operator<<(std::ostream& os, const BasicSkillVectorReaderWriter& rw)
-{
-	return rw.WriteToStream(os);
-}
-
-inline std::istream& operator >> (std::istream& is, BasicSkillVectorReaderWriter& rw)
-{
-	return rw.ReadFromStream(is);
 }
 
